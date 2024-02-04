@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Project A3</title>
+<link href="style.css" rel="stylesheet">
+<script src="script.js" defer></script>
+</head>
+
+<header>
+    <h1><strong>Interactive Media Gallery</strong></h1>
+    <nav>
+        <ul class="navigation">
+            <li><a href="#mediaFromGallery" class="navigation">Tabel</a></li>
+            <li><a href="#listOfYears" class="navigation">List of years</a></li>
+            <li><a href="#interactiveButtons" class="navigation">Buttons</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+<main>
+<input type="text" id="searchInput" placeholder="Search by name">
+
+<table id="mediaFromGallery" class="mediaFromGallery">
+    <tr class="Row1">
+    <th>Id</th>
+    <th>Poster</th>
+    <th>Name</th>
+    <th>Year</th>
+    <th>Genre</th>
+    <th>Description</th>
+    </tr>
+</table>
+
+<section id="interactiveButtons">
+<h2 class="titles">Buttons</h2>
+<button id="deleteOneItem">Delete an Item</button> <!--DELETE-->
+<button id="insertItem">Insert Data</button> <!--POST-->
+<button id="updateItem">Update an Item</button> <!--PUT-->
+<button id="removeFilters">Remove Filters</button> <!--GET-->
+</section>
+
+<div id="popUpForm">
+    <form id="insertionForm" class="forms">
+        
+        <label for="poster">Poster URL:</label>
+        <input type="text" id="poster" name="poster" required>
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" required>
+
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" required>
+
+        <button type="submit">Submit</button>
+    </form>
+    <button id="close-button" class="modalContent">Close</button>
+</div>
+
+<div id="getIdForUpdateDiv">
+    <form id="getIdForUpdateForm" class="forms">
+        <label for="inputUpdateById">Input the id</label>
+        <input type="number" name="inputUpdateById" id="inputUpdateById" required>
+        <button type="submit">Ok</button>
+    </form>
+</div>
+
+<div id="getIdForDeleteDiv">
+    <form id="getIdForDeleteForm" class="forms">
+        <label for="inputDeleteById">Input the id</label>
+        <input type="number" name="inputDeleteById" id="inputDeleteById" required>
+        <button type="submit">Ok</button>
+    </form>
+</div>
+
+<div id="updateDiv">
+    <form id="updateForm" class="forms"> 
+        
+        <label for="posterForUpdate">Poster URL:</label>
+        <input type="text" id="posterForUpdate" name="posterForUpdate" required>
+
+        <label for="nameForUpdate">Name:</label>
+        <input type="text" id="nameForUpdate" name="nameForUpdate" required>
+
+        <label for="yearForUpdate">Year:</label>
+        <input type="number" id="yearForUpdate" name="yearForUpdate" required>
+
+        <label for="genreForUpdate">Genre:</label>
+        <input type="text" id="genreForUpdate" name="genreForUpdate" required>
+
+        <label for="descrpForUpdate">Description:</label>
+        <input type="text" id="descrpForUpdate" name="descrpForUpdate" required>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<section id="listOfYears">
+<h2>Interactive years list</h2>
+    <dl id="interactiveYears">
+        <dt></dt>
+    </dl>
+
+<section class="divider"></section>
+</section>
+
+</main>
+</body>
+</html>

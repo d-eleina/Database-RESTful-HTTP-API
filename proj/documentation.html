@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Documentation</title>
+        <link href="doc-style.css" rel="stylesheet">
+    </head>
+
+    <header>
+        <h1>Documentation for the HTTP API</h1>
+    </header>
+     <body>
+        <h2>Requests</h2>
+        <div class="jaleSefule1">
+            <p>The data resources can be accessed via standard HTTP requests to an API endpoint. Web API recognizes the following HTTP verbs : </p>
+        </div>
+       
+       <table>
+       <tr> 
+        <th>Method</th>
+        <th>Action</th>
+       </tr>
+
+       <tr>
+        <td>GET</td>
+        <td>Retrieves data</td>
+       </tr>
+
+       <tr>
+        <td>POST</td>
+        <td>Creates data</td>
+       </tr>
+
+       <tr>
+        <td>PUT</td>
+        <td>Changes and/or replaces data</td>
+       </tr>
+
+       <tr>
+        <td>DELETE</td>
+        <td>Deletes data</td>
+       </tr>
+
+       </table>
+
+        <h2>Responses</h2>
+        <div class="jaleSefule2">
+            <p>Even though most of the time the Web API returns JSON in the response body, there are certain endpoints that return the HTTP status code instead of JSON</p>
+        </div>
+
+        <h3>Different Response Status Codes and their meanings</h3>
+        <table>
+            <tr> 
+             <th>Status Code</th>
+             <th>Description</th>
+            </tr>
+     
+            <tr>
+             <td>200</td>
+             <td>OK - Request successful. User can read the request result in the body & headers of the response. </td>
+            </tr>
+     
+            <tr>
+             <td>201</td>
+             <td>Created - The request has succeeded and a new resource has been created.</td>
+            </tr>
+     
+            <tr>
+             <td>204</td>
+             <td>No content - The request has succceeded but there is not message body to return.</td>
+            </tr>
+     <tr>
+       <td>400</td>
+       <td>Bad request - The request could not be understood by the server due to malformed syntax.</td>
+            <tr>
+             <td>404</td>
+             <td>Not found - Desired resource could not be found. This error can be due to a temporary or permanent condition.</td>
+            </tr>
+        <tr>
+             <td>500</td>
+             <td>Internal server error.</td>
+            </tr>
+     
+            </table>
+
+       <h2>CRUD Functionality</h2>
+       <h3>CRUD : Create, Retrieve, Update, Delete</h3>
+       <div>
+         <p>The following section will provide more detail about working with the database we created.</p>
+         <p><strong>note:</strong> the content-type for all the following functions is JSON.</p>
+       </div>
+       <h3>Creating: Adding Data for a new photo item</h3>
+       <p>If the user is inteding to add new data to the database, they will need to launch a POST request to the following URI: http://localhost:3000/api/photos.</p>
+          
+          <p>Shall all go well, the status code should be 200-OK ( or 201-Created) . If codes 400 or 505 show up, then it means there were issues encountered with the server while processing the request. </p>
+         
+          <p><strong>Example</strong></p>
+          <p>If the user is intending to add data for a new photo, they will need to follow these steps:</p>
+          <pre>
+            <strong>
+              async function addNewDataToDatabase(newData) {
+    let url = "http://localhost:3000/api/photos";
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(newData)
+    });
+
+    if (response.ok) {
+        console.log("Data added successfully");
+    } else {
+        console.error("Failed to add data to the database");
+    }
+   }
+              let newData = {
+    "name": "New Photo",
+    "year": "2023",
+    "genre": "New Genre",
+    "poster": "new-poster-url.jpg",
+    "description": "A new photo description"
+    };
+
+    await addNewDataToDatabase(newData);
+
+              
+
+            </strong>
+          </pre>
+          
+          <p>A possible output for this action would be : </p>
+          <pre><strong>
+            {
+	"id": 2,
+	"name": "Hello Kitty",
+	"year": "1975",
+	"genre": "Character, coquette",
+	"poster": "https://en.wikipedia.org/wiki/Hello_Kitty#/media/File:Hello_kitty_character_portrait.png",
+	"description": "Hello Kitty (Japanese: ハロー・キティ, Hepburn: Harō Kiti), also known by her real name Kitty White (キティ・ホワイト, Kiti Howaito), is a fictional character created by Yuko Shimizu, currently designed by Yuko Yamaguchi, and owned by the Japanese company Sanrio."
+}
+            </strong></pre>
+      
+       <h3>Retrieving: Listing the data of a specific item or all items</h3>
+       <div> <p>As far as retrieving information goes, the user can choose between getting all of the information from the database or they can opt to get the data of a singular item. </p></div>
+       
+          <div> <p><strong>Getting all of the data</strong> </p></div>
+       <div><p>To retrieve all of the data at once, the user needs to use the following URI : http://localhost:3000/api/photos. </p> </div>
+          
+          <p><strong>Example</strong></p>
+          <p>Say the user wishes to retrieve <strong>all</strong> information from the database. The correct approach would be : <strong>
+            <pre>     
+            async function getData () {
+    let response = await fetch('http://localhost:3000/api/photos', {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+        },
+    });
+
+    let data = await response.json();
+    console.log(data);
+
+    }
+            </pre>
+        </strong></p>
+          <p>One possible output for this request could be : </p>
+          
+          <p>
+          <pre>
+            <strong>
+            {
+	"data": [
+		{
+			"poster": "https://static.wikia.nocookie.net/international-entertainment-project/images/4/4e/Total_Drama_Island_poster.jpg/revision/latest?cb=20220727033806",
+			"name": "Total Drama",
+			"year": "2020",
+			"genre": "Comedy drama, Mockumentary, Reality, Satire",
+			"description": "Total Drama (often shortened as TD) is a Canadian animated television series created by Jennifer Pertsch and Tom McGillis that premiered on Teletoon (now Cartoon Network) in Canada on July 8, 2007, and on Cartoon Network in the U.S. on June 5, 2008. The series is both a homage and satire of common conventions from reality television competition shows like Survivor.",
+			"id": 1
+		},
+		{
+			"poster": "https://en.wikipedia.org/wiki/Hello_Kitty#/media/File:Hello_kitty_character_portrait.png",
+			"name": "Hello Kitty",
+			"year": "1975",
+			"genre": "Character, coquette",
+			"description": "Hello Kitty (Japanese: ハロー・キティ, Hepburn: Harō Kiti), also known by her real name Kitty White (キティ・ホワイト, Kiti Howaito), is a fictional character created by Yuko Shimizu, currently designed by Yuko Yamaguchi, and owned by the Japanese company Sanrio.",
+			"id": 2
+		}
+	]
+}
+            </strong>
+            </pre>
+          </p>
+          
+        <div> <p><strong>Getting the data of a specific item</strong> </p></div>
+       <div><p>To retrieve the data of a specific item, the user will need to use a similar URI to the first one, the only difference being that they will need to add the id of the desired item at the end of the URI : http://localhost:3000/api/photos/id.  </p> </div>
+       <p>note: the added id <strong>needs</strong> to be a number.</p>
+          
+          <p>If everything runs smoothly, the status code should be 200-OK. Receiving the 404 status code means that the data the user if looking for does not exist. Response codes 400 and 500 represent server errors.</p>
+          
+          <p><strong>Example</strong></p>
+          <p>If the user wishes to get only the data of a specific item, they should follow these steps : </p>
+          <p>
+            <strong>
+            <pre>
+            async function getDataById(id) {
+    let response = await fetch(`http://localhost:3000/api/photos` + id, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+        },
+    });
+
+    let data = await response.json();
+    return data;
+}
+              </pre>
+            </strong>
+          </p>
+          
+           <p>One possible output for this request could be ( for this example, the item with id 2 was used ) : </p>
+          
+          <pre>
+            <strong>
+            {
+	"data": {
+		"poster": "https://en.wikipedia.org/wiki/Hello_Kitty#/media/File:Hello_kitty_character_portrait.png",
+		"name": "Hello Kitty",
+		"year": "1975",
+		"genre": "Character, coquette",
+		"description": "Hello Kitty (Japanese: ハロー・キティ, Hepburn: Harō Kiti), also known by her real name Kitty White (キティ・ホワイト, Kiti Howaito), is a fictional character created by Yuko Shimizu, currently designed by Yuko Yamaguchi, and owned by the Japanese company Sanrio.",
+		"id": 2
+	}
+}
+            </strong></pre>
+          
+       
+          
+          <h3>Updating: Changing the data of a specific item</h3>
+       <p>To update any existing items from the database, the user will need to launch a PUT request to the following URI: http://localhost:3000/api/photos/id.</p>
+       <p>note: here the "id" at the end of the URI reffers to the id of the item the user is intending to update, and it <strong>needs</strong> to be a number.</p>
+          <p>Shall everything go well, status code 200-OK can be expected. If the 404-Not Found response code show up, then it means that the user is trying to update the data of an non existent item. Codes 400 and 500 represent server issues.   </p>
+          
+          <p><strong>Example</strong></p>
+          <p>If instead of retrieving data, the user wishes to update the data of an existing item, they should do the following : </p>
+          <pre>
+          <strong>
+          async function updateDataById(id, updatedInfo) {
+    let updateUrl = `http://localhost:3000/api/photos/${id}`;
+
+    let updateResponse = await fetch(updateUrl, {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(updatedInfo)
+    })};
+       
+       // you can then call the function and give it the necessary parameters
+            
+            let idToUpdate = desiredId ( replace with actual ID ); 
+       let updatedData = {
+      "name": "Updated Name",
+      "year": "2024",
+      "genre": "Updated Genre",
+      "poster": "updated-poster-url.jpg",
+      "description": "Updated description"
+       };
+
+await updateDataById(idToUpdate, updatedData); </strong>
+          </pre>
+          
+          <p>One possible output for this action could be : </p>
+          <pre>
+           <strong>
+             {
+	"message": "Photo updated successfully"
+             }
+            </strong>
+          </pre>
+      
+          
+          <h3>Deleting: Removing data of a specific item</h3>
+       <p>For deleting the data of a specific item, the user needs to put out a DELETE request to the following URI: http://localhost:3000/api/photos/id.</p>
+       <p>note: just like before, the "id" at the end of the URI reffers to the id of the item the user is intending to update, and it needs to be a number.</p>
+        
+          <p>Shall the DELETE request be successful, the expected status code is 200-OK. If the 404-Not Found response code shows up, it means that the user is trying to delete the data of a non-existing item. Codes 400 and 500 represent server issues. </p>
+          
+          <p><strong>Example</strong></p>
+          <p>If the user wants to delete the data of a specific item, they need to do the following: </p>
+          
+          <pre><strong>
+            async function deleteDataById(id) {
+    let deleteUrl = `http://localhost:3000/api/photos/${id}`;
+
+    let deleteResponse = await fetch(deleteUrl, {
+        method: "DELETE",
+        headers: {
+            "content-type": "application/json"
+        }
+    });
+   
+       //after doing this, the function can be called and passed the          correct parameter
+            let idToDelete = desiredId ( replace with actual ID );
+          await deleteDataById(idToDelete);
+
+}
+
+            </strong></pre>
+         
+          <p>One possible output for this action could be : </p>
+          <pre><strong>{
+	"message": "Photo deleted successfully"
+}</strong></pre>
+          
+          
+    </body>
+</html>

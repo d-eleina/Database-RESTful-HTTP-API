@@ -1,0 +1,56 @@
+h1 { 
+  font-size : 38px;
+  font-weight: bold;
+  color:#634e53;
+
+}
+
+body { 
+background-image: url('https://i.pinimg.com/originals/9f/aa/56/9faa56b05f7e72e048f083c6528bf5bb.jpg'); 
+}
+
+table {
+border-collapse:collapse;
+width:80%;
+}
+
+th,td{
+  border-bottom: 2px solid gray;
+  padding:10px;
+  text-align: left;
+}
+
+th { 
+  background-color: #f8c3d0;
+
+}
+
+td {
+background-color: #fcfcfc;
+
+}
+
+h2{
+font-size:28px; 
+color:#634e53;
+}
+
+pre { 
+max-width:600px;
+overflow-x:auto;
+ margin: 0 auto; /* Center the code block */
+ white-space: pre-wrap; /* Preserve line breaks */
+ padding: 10px; /* Add some padding for better readability */
+ border: 1px solid #ddd;  
+ background-color:#fcfcfc; 
+border-radius:10px;
+}
+
+p {
+color: #634e53;
+}
+
+h3 {
+color: #634e53;
+}
+
